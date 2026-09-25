@@ -1,0 +1,11 @@
+pyspark==4.2.0
+pandas>=2.0,<3.0
+numpy>=1.26
+streamlit>=1.38
+plotly>=5.22
+pyarrow>=18.0
+
+# Optional: only needed if you want to re-download the dataset yourself
+# directly from Kaggle via src/download_dataset.py. Not required to run
+# the app, since data/superstore.csv is already included.
+kaggle>=1.6
