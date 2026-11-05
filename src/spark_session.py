@@ -33,10 +33,9 @@ def _get_python_executable() -> str:
     candidates = [
         os.environ.get("PYSPARK_PYTHON"),
         os.environ.get("PYSPARK_DRIVER_PYTHON"),
-        os.environ.get("PYTHON"),
+        sys.executable,
         shutil.which("python"),
         shutil.which("python3"),
-        sys.executable,
     ]
 
     for candidate in candidates:
@@ -50,10 +49,8 @@ def get_spark_session(app_name: str = "SalesSense"):
     """
     Create or reuse a local SparkSession.
 
-    Uses local[*] so Spark uses all available CPU cores on this machine,
-    which is what demonstrates parallel/distributed-style processing on
-    a single machine for a college project (in a real deployment this
-    same code would run unchanged on a cluster by changing the master URL).
+    Use two worker threads by default so the Streamlit UI stays responsive
+    while Spark processes the small bundled dataset on a laptop.
     """
     _ensure_windows_hadoop_env()
 
@@ -63,7 +60,7 @@ def get_spark_session(app_name: str = "SalesSense"):
 
     spark = (
         SparkSession.builder.appName(app_name)
-        .master("local[*]")
+        .master(os.environ.get("SALESSENSE_SPARK_MASTER", "local[2]"))
         .config("spark.sql.shuffle.partitions", "8")  # small dataset -> fewer shuffle partitions than the 200 default
         .config("spark.driver.memory", "2g")
         .config("spark.ui.showConsoleProgress", "false")

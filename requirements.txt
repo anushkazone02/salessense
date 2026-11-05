@@ -1,11 +1,9 @@
+fastapi>=0.104.1,<1
+uvicorn>=0.24,<1
+pydantic>=2,<3
+python-multipart>=0.0.18,<1
 pyspark==4.2.0
 pandas>=2.0,<3.0
 numpy>=1.26
-streamlit>=1.38
-plotly>=5.22
 pyarrow>=18.0
-
-# Optional: only needed if you want to re-download the dataset yourself
-# directly from Kaggle via src/download_dataset.py. Not required to run
-# the app, since data/superstore.csv is already included.
-kaggle>=1.6
+plotly>=5.22,<8

@@ -1,18 +1,16 @@
-__pycache__/
-*.pyc
-.ipynb_checkpoints/
 .venv/
 venv/
+__pycache__/
+*.py[cod]
 *.egg-info/
-.DS_Store
-.streamlit/secrets.toml
+.pytest_cache/
+.coverage
+cache/
 
-# Spark
+# Spark-generated local state
 derby.log
 metastore_db/
 spark-warehouse/
+*.crc
 
-# Model artifacts are checked in intentionally for this project so the
-# app runs immediately after cloning; comment the next line out if you
-# would rather regenerate them with `python -m src.train_model`.
-# model/trained_model/
+# Keep bundled model runs; they are required for out-of-the-box predictions.

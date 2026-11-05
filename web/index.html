@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#102f2b"><title>SalesSense | Retail intelligence</title>
+<link rel="icon" href="data:,"><link rel="stylesheet" href="/assets/studio.css">
+<script defer src="/vendor/plotly.js"></script><script defer src="/assets/studio.js"></script></head>
+<body><a class="skip" href="#main">Skip to content</a>
+<aside><a class="brand" href="#overview"><svg viewBox="0 0 38 38" aria-hidden="true"><rect x="1" y="1" width="36" height="36" rx="11" fill="#c9ef9c"/><path d="M10 25v-7m8 7V13m8 12V9" stroke="#173e35" stroke-width="4" stroke-linecap="round"/></svg> SalesSense</a>
+<div class="rail-label">WORKSPACE</div><nav aria-label="Workspace">
+<a href="#overview" data-icon="grid">Overview</a><a href="#analytics" data-icon="chart">Sales analytics</a>
+<div class="rail-label">MACHINE LEARNING</div><a href="#models" data-icon="layers">Model comparison</a><a href="#predict" data-icon="pulse">Demand forecast</a><a href="#batch" data-icon="table">Batch scoring</a>
+<div class="rail-label">PROJECT</div><a href="#method" data-icon="book">Methodology</a></nav>
+<div class="rail-bottom"><span class="signal"></span> Local workspace<small>FAVORITA GROCERY EDITION</small></div></aside>
+<main id="main"><header><span>Workspace <b>/</b> <strong id="crumb">Overview</strong></span><span class="engine"><i></i> Apache Spark MLlib</span></header>
+<div class="content"><div class="intro"><div><div class="eyebrow" id="kicker">RETAIL INTELLIGENCE</div><h1 id="title">Sales overview</h1><p id="subtitle">Explore grocery demand by city and product family in Ecuador.</p></div><a id="export" class="action" href="/api/overview.csv" download>↓ &nbsp; Export CSV</a></div>
+<div id="message" role="status" hidden></div>
+<section id="overview" hidden><form id="filters" class="filters"><label>City<select name="city"><option value="">All cities</option></select></label>
+<label>Product family<select name="family"><option value="">All families</option></select></label><label>From<input name="start" type="date"></label><label>Through<input name="end" type="date"></label><button type="submit">Apply filters</button><button type="reset" class="subtle">Reset</button></form>
+<div id="dashboardBody"><div class="kpis" id="totals"></div>
+<div class="grid pair"><article><div class="panel-head"><div><div class="eyebrow">01 / TREND</div><h2>Monthly performance</h2></div><div class="toggle"><button data-metric="revenue" aria-pressed="true">Sales</button><button data-metric="average" aria-pressed="false">Daily average</button></div></div><div id="trend" class="plot"></div></article>
+<article><div class="eyebrow">02 / PRODUCT MIX</div><h2>Leading product families</h2><p class="muted">Share of selected unit sales · top five</p><div id="regions"></div></article></div>
+<article><div class="eyebrow">03 / OPERATIONS</div><h2>Product family detail</h2><div id="categories"></div></article></div></section>
+<section id="models" hidden><div id="leader"></div><article><div class="eyebrow">01 / SELECTION</div><h2>Validation leaderboard</h2><p class="muted">May–June 2017 · ranked by lowest root mean squared error (RMSE).</p><div id="ranking"></div></article>
+<div id="testmetrics" class="kpis"></div><article><div class="eyebrow">FINAL TEST / BENCHMARK</div><h2>Against last week</h2><p class="muted">Both rows use the same test dates with an observed value for the same store and product family seven calendar days earlier.</p><div id="bench"></div></article><div class="grid halves"><article><h2>Actual vs. predicted</h2><div id="fitplot" class="plot"></div></article><article><h2>Residual distribution</h2><div id="residuals" class="plot"></div></article></div></section>
+<section id="predict" hidden><div class="grid predict-grid"><article><div class="eyebrow">01 / FEATURES</div><h2>Grocery demand plan</h2><form id="single"><div class="fields" id="inputs"></div><button class="primary">Forecast units →</button></form></article><article class="result"><div class="eyebrow">02 / MODEL OUTPUT</div><h2>Expected units sold</h2><strong id="estimate">—</strong><p id="estimateNote" aria-live="polite">Forecast 16 August 2017, or replay a May–August date using only earlier sales.</p><div class="model-chip"></div></article></div></section>
+<section id="batch" hidden><article><div class="eyebrow">BATCH INFERENCE</div><h2>Score a CSV file</h2><p>The template contains five grocery family plans for 16 August 2017 from the supplied competition test file. The download adds a unit-sales forecast for each store and family.</p><a href="/api/template.csv" download class="inline">↓ Download CSV template</a>
+<form id="batchForm"><label class="upload">Store-family plans <input type="file" name="file" accept=".csv,text/csv" required><small>UTF-8 CSV · up to 5 MB</small></label><button class="primary">Score and download CSV →</button></form><p id="batchNote" aria-live="polite"></p><div class="model-chip"></div></article></section>
+<section id="analytics" hidden><div id="analyticsBody"></div></section>
+<section id="method" hidden><article><div class="eyebrow">SYSTEM ARCHITECTURE</div><h2>From grocery sales to a next-day forecast</h2><div class="steps">
+<p><b>01 · Data</b>Spark joins daily sales by store and product family to Favorita’s store metadata. City and province identify a store’s location. Some products sell by weight, so unit sales can be fractional.</p>
+<p><b>02 · Features</b>Each store-family series supplies its own lagged sales and trailing averages. Inputs also include calendar features, store format and the planned number of items on promotion.</p>
+<p><b>03 · Selection</b>Four Spark regressors train on data through April 2017. Lowest May–June validation RMSE selects the winner. July–15 August is reserved for a rolling one-day-ahead test against last week’s sales.</p>
+<p><b>04 · Serving</b>FastAPI reconstructs the same features from strictly earlier dates and uses the saved winner for single forecasts and CSV batches. The next supported date after the labeled history is 16 August 2017.</p></div><a class="inline" href="/docs" target="_blank" rel="noopener">Explore the API documentation ↗</a></article></section>
+<footer>SalesSense <span>Favorita · Grocery demand workspace</span></footer></div></main></body></html>

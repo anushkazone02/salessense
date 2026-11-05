@@ -1,1 +1,0 @@
-{"class":"org.apache.spark.ml.feature.OneHotEncoderModel","timestamp":1790358613755,"sparkVersion":"4.2.0","uid":"OneHotEncoder_4552a594119d","paramMap":{"inputCol":"Ship_Mode_Index","outputCol":"Ship_Mode_OHE"},"defaultParamMap":{"dropLast":true,"handleInvalid":"error","outputCol":"OneHotEncoder_4552a594119d__output"}}
