@@ -1,4 +1,4 @@
-# SalesSense | Favorita grocery demand
+# SalesSense | 
 
 **How many units of dairy will a particular Quito store sell tomorrow?** Select a real city, store and product family, review the number of items on promotion, and generate a one-day-ahead forecast. The same fitted Spark MLlib pipeline scores individual requests and uploaded CSV plans. Sales are measured in units, including fractional quantities for goods sold by weight.
 
